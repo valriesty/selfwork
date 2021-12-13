@@ -1,0 +1,105 @@
+import java.util.*;
+public class luasBangun {
+    static double circle(double r) {
+        double luas = 0;
+        if(r%7 == 0) {
+            luas = 22 * Math.pow(r, 2) / 7;
+        }else if(r%7 != 0) {
+            luas = 3.14 * Math.pow(r, 2);
+        }
+        return luas;
+    }
+    static double square(double s) {
+        double luas = Math.pow(s, 2);               return luas;
+    }
+    static double rectangle(double p, double l) {
+        double luas = p * l;                        return luas;
+    }
+    static double triangle(double a, double t) {
+        double luas = 0.5 * a * t;                  return luas;
+    }
+    static double parallelogram(double a, double t) {
+        double luas = a * t;                        return luas;
+    }
+    static double trapezoid(double a, double b, double t) {
+        double luas = (a + b) * t / 2;              return luas;
+    }
+    static double diamond(double d1, double d2) {
+        double luas = d1 * d2 / 2;                  return luas;
+    }
+    public static void main(String[] args) {
+        Scanner luasBangun = new Scanner(System.in);
+        System.out.println("**********************************************************************");
+        System.out.printf("%52s %n", "KALKULATOR PENGHITUNG LUAS BANGUN DATAR");
+        System.out.println("**********************************************************************");
+        System.out.printf("%5s %s", "<>", "Banyak bangun datar yang akan dihitung : ");
+        int banyak = luasBangun.nextInt();   luasBangun.nextLine();   double [] diagonal1 = new double[banyak];
+        System.out.printf("%68s %n", "------------------------------------------------------------------");
+
+        String [] bangun = new String[banyak];      double [] diagonal2 = new double[banyak];
+        double [] sisi = new double[banyak];        double [] jari = new double[banyak];
+        double [] panjang = new double[banyak];     double [] lebar = new double[banyak];
+        double [] alas = new double[banyak];        double [] tinggi = new double[banyak];
+        double [] atas = new double[banyak];        double [] bawah = new double[banyak];
+        double [] large = new double[banyak];       double total = 0;
+        
+        for(int i = 0; i < banyak; i++) {
+            System.out.printf("%7s %-15s%d %s", "#", "Bangun datar ke-", (i+1), ": ");
+            bangun[i] = luasBangun.nextLine();
+            if(bangun[i].equalsIgnoreCase("persegi")) {
+                System.out.printf("%13s %8s", "Sisi", "= ");
+                sisi[i] = luasBangun.nextDouble();       luasBangun.nextLine();
+                large[i] = square(sisi[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("persegi panjang")) {
+                System.out.printf("%16s %5s", "Panjang", "= ");
+                panjang[i] = luasBangun.nextDouble();
+                System.out.printf("%14s %7s", "Lebar", "= ");
+                lebar[i] = luasBangun.nextDouble();      luasBangun.nextLine();
+                large[i] = rectangle(panjang[i], lebar[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("segitiga") || bangun[i].equalsIgnoreCase("segi tiga")) {
+                System.out.printf("%13s %8s", "Alas", "= ");
+                alas[i] = luasBangun.nextDouble();
+                System.out.printf("%15s %6s", "Tinggi", "= ");
+                tinggi[i] = luasBangun.nextDouble();      luasBangun.nextLine();
+                large[i] = triangle(alas[i], tinggi[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("lingkaran")) {
+                System.out.printf("%18s %3s", "Jari-jari", "= ");
+                jari[i] = luasBangun.nextDouble();       luasBangun.nextLine();
+                large[i] = circle(jari[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("jajar genjang")) {
+                System.out.printf("%13s %8s", "Alas", "= ");
+                alas[i] = luasBangun.nextDouble();
+                System.out.printf("%15s %6s", "Tinggi", "= ");
+                tinggi[i] = luasBangun.nextDouble();      luasBangun.nextLine();
+                large[i] = parallelogram(alas[i], tinggi[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("belah ketupat") || bangun[i].equalsIgnoreCase("layang-layang")) {
+                System.out.printf("%19s %2s", "Diagonal 1", "= ");
+                diagonal1[i] = luasBangun.nextDouble();
+                System.out.printf("%19s %2s", "Diagonal 2", "= ");
+                diagonal2[i] = luasBangun.nextDouble();      luasBangun.nextLine();
+                large[i] = diamond(diagonal1[i], diagonal2[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            } else if(bangun[i].equalsIgnoreCase("trapesium")) {
+                System.out.printf("%18s %3s", "Sisi atas", "= ");
+                atas[i] = luasBangun.nextDouble();
+                System.out.printf("%19s %2s", "Sisi Bawah", "= ");
+                bawah[i] = luasBangun.nextDouble();
+                System.out.printf("%15s %6s", "Tinggi", "= ");
+                tinggi[i] = luasBangun.nextDouble();      luasBangun.nextLine();
+                large[i] = trapezoid(atas[i], bawah[i], tinggi[i]);
+                System.out.printf("%13s %7s %.2f %n", "Luas", "=", large[i]);
+            }
+            total += large[i];
+        }
+        System.out.printf("%68s %n", "------------------------------------------------------------------");
+        System.out.printf("%5s %s %.2f %n", "<>", "Total luas bangun datar yang dihitung :", total);
+        System.out.println("**********************************************************************");
+        
+        luasBangun.close();
+    }
+}
